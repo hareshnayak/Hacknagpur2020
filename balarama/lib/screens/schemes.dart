@@ -76,7 +76,7 @@ class _SchemesPageState extends State<SchemesPage> {
                                 color: Colors.white,
                               ),
                               width: MediaQuery.of(context).size.width,
-                              height: 70,
+//                               height: 70,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 20),
