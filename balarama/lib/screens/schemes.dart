@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:balarama/resources/strings.dart';
+import 'package:balarama/widgets/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SchemesPage extends StatefulWidget {
   @override
@@ -48,74 +49,28 @@ class _SchemesPageState extends State<SchemesPage> {
           ),
           Container(
             height: MediaQuery.of(context).size.height - 150,
-            child: ListView.builder(
-              itemCount: 5,
-              physics: ScrollPhysics(),
-              itemBuilder: (BuildContext context, int i) {
-                return Container(
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        height: 380,
-                        width: MediaQuery.of(context).size.width,
-                        decoration:
-                        BoxDecoration(color: Colors.grey.shade200),
-                      ),
-                      Positioned(
-                        top: 5,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 300,
-                              child: Image.network(schemeUrl[i],
-                                  fit: BoxFit.cover),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                              ),
-                              width: MediaQuery.of(context).size.width,
-//                               height: 70,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                child: Text(
-                                  schemeText[i],
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 17,
-                                      fontFamily: 'Inter'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 85,
-                        right: 10,
-                        child: RaisedButton(
-                          onPressed: () {},
-                          color: Colors.blue.shade900,
-                          child: Text(
-                            'Read More',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Comfortaa',
-                                letterSpacing: -0.3),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+            child: FutureBuilder<DocumentSnapshot>(
+              future: FirebaseFirestore.instance.collection('global').doc('schemes').get(),
+              builder: (context, snapshot){
+                if(!snapshot.hasData)
+                  return Center(child: CircularProgressIndicator());
+                return getSchemes(context, snapshot.data);
+              }
             ),
           )
         ],
       ),
     );
   }
+
+  Widget getSchemes(BuildContext context, DocumentSnapshot snapshot){
+    return ListView.builder(
+      itemCount: snapshot['scheme'].length,
+      physics: ScrollPhysics(),
+      itemBuilder: (BuildContext context, int i) {
+        return schemeCard(context, snapshot['scheme'][i]);
+      },
+    );
+  }
+
 }
