@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "20909366935",
+    "project_id": "balarama-d3bc1",
+    "storage_bucket": "balarama-d3bc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20909366935:android:4cf8f021f0141d665593d2",
+        "android_client_info": {
+          "package_name": "com.hnbrothers.balarama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20909366935-kkn7llro20bi39rlmooqs746r4fc4bvo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hnbrothers.balarama",
+            "certificate_hash": "cb55df1dfa02819f5453d8bfc1e01d59fa29dc4b"
+          }
+        },
+        {
+          "client_id": "20909366935-lf0s60173ojtm1fanlu3oba7shjukl4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrwJ7uuY0VDaWXDRTe4_o4zpmwxIosrfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20909366935-lf0s60173ojtm1fanlu3oba7shjukl4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
