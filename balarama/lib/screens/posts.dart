@@ -37,12 +37,18 @@ class _PostsPageState extends State<PostsPage> {
   }
 
   Widget getListOfPosts(DocumentSnapshot snapshot) {
+
+    List<dynamic> listOfPosts = [];
+    snapshot['posts'].forEach((key, value){
+      listOfPosts.add(value);
+    });
+
     return ListView.builder(
-      itemCount: schemeUrl.length,
+      itemCount: listOfPosts.length,
       physics: ScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int i) {
-        return PostCard(data: snapshot['posts'][i]);
+        return PostCard(data: listOfPosts[i]);
       },
     );
   }

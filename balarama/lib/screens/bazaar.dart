@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:balarama/resources/strings.dart';
+import 'package:balarama/widgets/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BazaarPage extends StatefulWidget {
   @override
@@ -36,55 +37,12 @@ class _BazaarPageState extends State<BazaarPage> {
           ),
           Container(
             height: MediaQuery.of(context).size.height - 171,
-            child: ListView.builder(
-              itemCount: 4,
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return Row(
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.all(0),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        height: 150,
-                        width:
-                        (MediaQuery.of(context).size.width - 40) / 2,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(storeUrl[index]),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
-                      ),
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.all(0),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        height: 150,
-                        width:
-                        (MediaQuery.of(context).size.width - 40) / 2,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(storeUrl[index + 1]),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
+            child: FutureBuilder<DocumentSnapshot>(
+              future: FirebaseFirestore.instance.collection('global').doc('bazaar').get(),
+              builder: (context, snapshot){
+                if(!snapshot.hasData)
+                  return Center(child: CircularProgressIndicator());
+                return getListOfProducts(snapshot.data);
               },
             ),
           ),
@@ -92,4 +50,36 @@ class _BazaarPageState extends State<BazaarPage> {
       ),
     );
   }
+
+  Widget getListOfProducts(DocumentSnapshot snapshot){
+
+    List<dynamic> listOfProducts = [];
+    snapshot['products'].forEach((key, value){
+      listOfProducts.add(value);
+    });
+
+    return GridView.count(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: ScrollPhysics(),
+      children: <Widget>[
+        for(int i = 0; i < listOfProducts.length; i++)
+          bazaarItem(context, listOfProducts[i]),
+      ],
+    );
+//      ListView.builder(
+//      itemCount: listOfProducts.length,
+//      shrinkWrap: true,
+//      physics: ScrollPhysics(),
+//      itemBuilder: (BuildContext context, int i) {
+//        return Row(
+//          children: <Widget>[
+//            for (int j = i; j < 2 && i < listOfProducts.length; j++)
+//              bazaarItem(context, listOfProducts[j]),
+//         ],
+//        );
+//      },
+//    );
+  }
+
 }

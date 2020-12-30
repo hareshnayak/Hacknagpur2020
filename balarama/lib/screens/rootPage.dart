@@ -21,7 +21,7 @@ class _IndexPageState extends State<IndexPage>
     _tabController = TabController(vsync: this, initialIndex: 0, length: 4);
     _tabController.addListener(
       () {
-        if (_tabController.index == 1) {
+        if (_tabController.index == 0) {
           showFab = true;
         } else {
           showFab = false;
@@ -51,10 +51,10 @@ class _IndexPageState extends State<IndexPage>
           controller: _tabController,
           indicatorColor: Colors.white,
           tabs: <Widget>[
-            Tab(icon: Icon(Icons.book)),
             Tab(icon: Icon(Icons.home)),
-            Tab(icon: Icon(Icons.person)),
+            Tab(icon: Icon(Icons.book)),
             Tab(icon: Icon(Icons.store)),
+            Tab(icon: Icon(Icons.person)),
           ],
         ),
       ),
@@ -62,10 +62,10 @@ class _IndexPageState extends State<IndexPage>
         child: TabBarView(
           controller: _tabController,
           children: <Widget>[
-            SchemesPage(),
             PostsPage(),
-            ProfilePage(),
+            SchemesPage(),
             BazaarPage(),
+            ProfilePage(),
           ],
         ),
       ),

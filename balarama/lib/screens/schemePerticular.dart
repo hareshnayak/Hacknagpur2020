@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Scheme extends StatefulWidget {
+
+  final dynamic data;
+  Scheme({this.data});
+
   @override
   SchemeState createState() {
     return SchemeState();
@@ -23,7 +27,7 @@ class SchemeState extends State<Scheme> {
               decoration: BoxDecoration(
                 color: Colors.grey,
               ),
-              child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKn2JM0AFcW9_buBAmlQfWv2tACkl_AyUltg&usqp=CAU', fit:BoxFit.cover)
+              child: Image.network(widget.data['image'] ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKn2JM0AFcW9_buBAmlQfWv2tACkl_AyUltg&usqp=CAU', fit:BoxFit.cover)
             ),
             Container(
               decoration: BoxDecoration(
@@ -32,7 +36,7 @@ class SchemeState extends State<Scheme> {
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
-                "schemeText[i]",
+                widget.data['title'],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -44,7 +48,7 @@ class SchemeState extends State<Scheme> {
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
-                "Within",
+                widget.data['details'],
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, fontFamily: 'Inter'),
               ),
