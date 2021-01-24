@@ -31,3 +31,5 @@ Our app scrapes data from authentic websites and provides the information about 
 - **Other Features**
     - Muiltilingual - users can switch between english and hindi
     - efficient UX - easy to navigate through the app
+
+- Selected for data streamer challenge 
